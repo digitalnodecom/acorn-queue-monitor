@@ -54,6 +54,10 @@ class AcornQueueMonitorServiceProvider extends ServiceProvider
         ], 'config');
 
         add_action('init', function(){
+            if ( ! session_id() ) {
+                session_start();
+            }
+
             app()->make('AcornQueueMonitor');
         });
     }

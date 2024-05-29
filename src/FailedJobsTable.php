@@ -112,4 +112,24 @@ class FailedJobsTable extends \WP_List_Table {
 
         echo ob_get_clean();
     }
+
+    public function column_id( $item ) {
+        $retry_link = wp_nonce_url(
+            add_query_arg(
+                array(
+                    'action'    => 'aqm_retry_job',
+                    'post'      => $item->uuid,
+                ),
+                admin_url()
+            ),
+            'aqm_retry_job'
+        );
+
+        $output = esc_html(  $item->uuid  );
+
+        $output .= '<div class="row-actions"><a href="' . esc_url( $retry_link ) . '">' . esc_html__( 'Retry', 'acorn_queue_monitor' ) . '</a></div>';
+
+        return $output;
+    }
+
 }
