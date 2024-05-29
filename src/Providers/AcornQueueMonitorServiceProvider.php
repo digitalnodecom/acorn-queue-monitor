@@ -49,11 +49,6 @@ class AcornQueueMonitorServiceProvider extends ServiceProvider
             __DIR__.'/../../config/acorn-queue-monitor.php' => $this->app->configPath('acorn-queue-monitor.php'),
         ], 'config');
 
-        $this->loadViewsFrom(
-            __DIR__.'/../../resources/views',
-            'AcornQueueMonitor',
-        );
-
         add_action('init', function(){
             $this->app->make('AcornQueueMonitor');
         });
