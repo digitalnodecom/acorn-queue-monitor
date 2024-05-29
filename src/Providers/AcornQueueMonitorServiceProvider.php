@@ -4,6 +4,8 @@ namespace DigitalNode\AcornQueueMonitor\Providers;
 
 use DigitalNode\AcornQueueMonitor\Admin;
 use DigitalNode\AcornQueueMonitor\Contracts\JobRepository;
+use DigitalNode\AcornQueueMonitor\FailedJobsTable;
+use DigitalNode\AcornQueueMonitor\PendingJobsTable;
 use DigitalNode\AcornQueueMonitor\Repositories\DatabaseRepository;
 use DigitalNode\AcornQueueMonitor\Table;
 use Illuminate\Support\ServiceProvider;
@@ -19,18 +21,20 @@ class AcornQueueMonitorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('Table', fn() => new Table());
+        app()->bind('PendingJobsTable', fn() => new PendingJobsTable());
+        app()->bind('FailedJobsTable', fn() => new FailedJobsTable());
 
-        $this->app->bind('Admin', fn() => new Admin(
-            $this->app->make('Table')
+        app()->bind('Admin', fn() => new Admin(
+            app()->make('PendingJobsTable'),
+            app()->make('FailedJobsTable')
         ));
 
-        $this->app->singleton('AcornQueueMonitor', function () {
-            return new AcornQueueMonitor($this->app);
+        app()->singleton('AcornQueueMonitor', function () {
+            return new AcornQueueMonitor(app());
         });
 
         // TODO: Allow multiple job drivers in future.
-        $this->app->bind(JobRepository::class, DatabaseRepository::class);
+        app()->bind(JobRepository::class, DatabaseRepository::class);
 
         $this->mergeConfigFrom(
             __DIR__.'/../../config/acorn-queue-monitor.php',
@@ -46,11 +50,11 @@ class AcornQueueMonitorServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../../config/acorn-queue-monitor.php' => $this->app->configPath('acorn-queue-monitor.php'),
+            __DIR__.'/../../config/acorn-queue-monitor.php' => app()->configPath('acorn-queue-monitor.php'),
         ], 'config');
 
         add_action('init', function(){
-            $this->app->make('AcornQueueMonitor');
+            app()->make('AcornQueueMonitor');
         });
     }
 }

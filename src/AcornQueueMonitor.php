@@ -33,6 +33,8 @@ class AcornQueueMonitor
             $admin = $this->app->make('Admin');
 
             $admin->queues_menu_page();
+            $admin->queues_pending_jobs_menu_subpage();
+            $admin->queues_failed_jobs_menu_subpage();
         });
     }
 }

@@ -11,7 +11,7 @@ if (!class_exists('\WP_List_Table')) {
     require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 }
 
-class Table extends \WP_List_Table {
+class FailedJobsTable extends \WP_List_Table {
     CONST PER_PAGE = 20;
 
     public function __construct( $args = array() ) {
@@ -26,7 +26,7 @@ class Table extends \WP_List_Table {
         /* @var JobRepository $jobRepository */
         $jobRepository = app()->make(JobRepository::class);
 
-        $jobs = $jobRepository->getJobs(
+        $jobs = $jobRepository->getFailedJobs(
             self::PER_PAGE,
             $this->get_pagenum() - 1
         )->all();
@@ -61,14 +61,14 @@ class Table extends \WP_List_Table {
     public function column_default($item, $column_name)
     {
         switch ($column_name) {
+            case 'id':
+                return $item->uuid;
             case 'payload':
                 return '<code>' . $item->payload . '</code>';
-            case 'reserved_at':
-                return isset($item->reserved_at) ? Carbon::parse($item->reserved_at)->diffForHumans() : 'n/a';
-            case 'available_at':
-                return isset($item->available_at) ? Carbon::parse($item->available_at)->diffForHumans() : 'n/a';
-            case 'created_at':
-                return isset($item->created_at) ? Carbon::parse($item->created_at)->diffForHumans() : 'n/a';
+            case 'exception':
+                return '<div style="max-height: 200px; overflow-y: scroll;" ">' . $item->exception . '</div>';
+            case 'failed_at':
+                return isset($item->failed_at) ? Carbon::parse($item->failed_at)->diffForHumans() : 'n/a';
             default:
                 return $item->{$column_name} ?? '';
         }
@@ -77,12 +77,12 @@ class Table extends \WP_List_Table {
     public function get_columns()
     {
         $columns = array(
-            'id' => 'ID',
+            'id' => 'UUID',
+            'connection' => 'Connection',
             'queue' => 'Queue',
             'payload' => 'Payload',
-            'reserved_at' => 'Reserved At',
-            'available_at' => 'Available At',
-            'created_at' => 'Created At',
+            'exception' => 'Exception',
+            'failed_at' => 'Failed At',
         );
         return $columns;
     }
@@ -104,7 +104,7 @@ class Table extends \WP_List_Table {
         $this->prepare_items();
 
         ob_start();
-        echo '<div class="wrap"><h2>Queue Monitor</h2>';
+        echo '<div class="wrap"><h2>Failed Jobs</h2>';
         echo '<form method="POST">';
         $this->display();
         echo '</form>';
