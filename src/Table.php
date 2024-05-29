@@ -3,6 +3,7 @@
 namespace DigitalNode\AcornQueueMonitor;
 
 use DigitalNode\AcornQueueMonitor\Contracts\JobRepository;
+use Illuminate\Support\Carbon;
 
 if ( ! defined( 'WPINC' ) ) die;
 
@@ -63,11 +64,11 @@ class Table extends \WP_List_Table {
             case 'payload':
                 return '<code>' . $item->payload . '</code>';
             case 'reserved_at':
-                return $item->reserved_at ?? 'n/a';
+                return isset($item->reserved_at) ? Carbon::parse($item->reserved_at)->diffForHumans() : 'n/a';
             case 'available_at':
-                return $item->available_at ?? 'n/a';
+                return isset($item->available_at) ? Carbon::parse($item->available_at)->diffForHumans() : 'n/a';
             case 'created_at':
-                return $item->created_at ?? 'n/a';
+                return isset($item->created_at) ? Carbon::parse($item->created_at)->diffForHumans() : 'n/a';
             default:
                 return $item->{$column_name} ?? '';
         }
