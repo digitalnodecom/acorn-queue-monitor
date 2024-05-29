@@ -101,10 +101,14 @@ class Table extends \WP_List_Table {
 
     public function renderTable() {
         $this->prepare_items();
+
+        ob_start();
         echo '<div class="wrap"><h2>Queue Monitor</h2>';
         echo '<form method="POST">';
         $this->display();
         echo '</form>';
         echo '</div>';
+
+        echo ob_get_clean();
     }
 }
