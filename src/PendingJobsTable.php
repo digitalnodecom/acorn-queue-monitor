@@ -16,8 +16,8 @@ class PendingJobsTable extends \WP_List_Table {
 
     public function __construct( $args = array() ) {
         parent::__construct(array(
-            'singular' => 'Job',
-            'plural'   => 'Jobs',
+            'singular' => 'Pending Job',
+            'plural'   => 'Pending Jobs',
             'ajax'     => false
         ));
     }
