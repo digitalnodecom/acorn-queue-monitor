@@ -4,7 +4,8 @@ namespace DigitalNode\AcornQueueMonitor\Contracts;
 
 use Illuminate\Support\Collection;
 
-interface JobRepository {
+interface JobRepository
+{
     /**
      * Get the count of failed jobs.
      *
@@ -28,23 +29,18 @@ interface JobRepository {
 
     /**
      * Retrieve all jobs stored in the database;
-     *
-     * @return \Illuminate\Support\Collection
      */
-    public function getJobs( int $per_page = 0, int $offset = 0 ): Collection;
+    public function getJobs(int $per_page = 0, int $offset = 0): Collection;
 
     /**
-    * Retrieve all failed jobs stored in the database;
-    *
-    * @return \Illuminate\Support\Collection
-    */
-    public function getFailedJobs( int $per_page = 0, int $offset = 0 ): Collection;
+     * Retrieve all failed jobs stored in the database;
+     */
+    public function getFailedJobs(int $per_page = 0, int $offset = 0): Collection;
 
     /**
      * Retrieve the jobs with the given IDs.
      *
-     * @param  array<integer>  $ids
-     * @return \Illuminate\Support\Collection
+     * @param  array<int>  $ids
      */
-    public function getJobsByIds( array $ids = [] ): Collection;
+    public function getJobsByIds(array $ids = []): Collection;
 }

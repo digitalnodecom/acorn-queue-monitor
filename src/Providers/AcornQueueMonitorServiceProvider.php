@@ -2,15 +2,13 @@
 
 namespace DigitalNode\AcornQueueMonitor\Providers;
 
+use DigitalNode\AcornQueueMonitor\AcornQueueMonitor;
 use DigitalNode\AcornQueueMonitor\Admin;
 use DigitalNode\AcornQueueMonitor\Contracts\JobRepository;
 use DigitalNode\AcornQueueMonitor\FailedJobsTable;
 use DigitalNode\AcornQueueMonitor\PendingJobsTable;
 use DigitalNode\AcornQueueMonitor\Repositories\DatabaseRepository;
-use DigitalNode\AcornQueueMonitor\Table;
 use Illuminate\Support\ServiceProvider;
-use DigitalNode\AcornQueueMonitor\Console\AcornQueueMonitorCommand;
-use DigitalNode\AcornQueueMonitor\AcornQueueMonitor;
 
 class AcornQueueMonitorServiceProvider extends ServiceProvider
 {
@@ -21,10 +19,10 @@ class AcornQueueMonitorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        app()->bind('PendingJobsTable', fn() => new PendingJobsTable());
-        app()->bind('FailedJobsTable', fn() => new FailedJobsTable());
+        app()->bind('PendingJobsTable', fn () => new PendingJobsTable());
+        app()->bind('FailedJobsTable', fn () => new FailedJobsTable());
 
-        app()->bind('Admin', fn() => new Admin(
+        app()->bind('Admin', fn () => new Admin(
             app()->make('PendingJobsTable'),
             app()->make('FailedJobsTable')
         ));
@@ -53,8 +51,8 @@ class AcornQueueMonitorServiceProvider extends ServiceProvider
             __DIR__.'/../../config/acorn-queue-monitor.php' => app()->configPath('acorn-queue-monitor.php'),
         ], 'config');
 
-        add_action('init', function(){
-            if ( ! session_id() ) {
+        add_action('init', function () {
+            if (! session_id()) {
                 session_start();
             }
 

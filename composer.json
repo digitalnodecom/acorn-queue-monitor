@@ -27,5 +27,8 @@
                 "AcornQueueMonitor": "DigitalNode\\AcornQueueMonitor\\Facades\\AcornQueueMonitor"
             }
         }
+    },
+    "require-dev": {
+        "laravel/pint": "^1.16"
     }
 }

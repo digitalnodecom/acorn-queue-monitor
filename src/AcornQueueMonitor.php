@@ -2,9 +2,7 @@
 
 namespace DigitalNode\AcornQueueMonitor;
 
-use Illuminate\Support\Arr;
 use Roots\Acorn\Application;
-use function Crontrol\Schedule\add;
 
 class AcornQueueMonitor
 {
@@ -18,7 +16,6 @@ class AcornQueueMonitor
     /**
      * Create a new AcornQueueMonitor instance.
      *
-     * @param  \Roots\Acorn\Application  $app
      * @return void
      */
     public function __construct(Application $app)
@@ -28,8 +25,9 @@ class AcornQueueMonitor
         $this->run();
     }
 
-    private function run(){
-        add_action('admin_menu', function(){
+    private function run()
+    {
+        add_action('admin_menu', function () {
             /* @var Admin $admin */
             $admin = $this->app->make('Admin');
 
@@ -38,14 +36,14 @@ class AcornQueueMonitor
             $admin->queues_failed_jobs_menu_subpage();
         });
 
-        add_action('admin_init', function(){
+        add_action('admin_init', function () {
             /* @var Admin $admin */
             $admin = $this->app->make('Admin');
 
             $admin->handle_aqm_retry_job();
         });
 
-        add_action('admin_notices', function (){
+        add_action('admin_notices', function () {
             /* @var Admin $admin */
             $admin = $this->app->make('Admin');
 
