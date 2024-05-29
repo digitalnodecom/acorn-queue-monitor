@@ -101,7 +101,7 @@ class Table extends \WP_List_Table {
 
     public function renderTable() {
         $this->prepare_items();
-        echo '<div class="wrap"><h2>TEST</h2>';
+        echo '<div class="wrap"><h2>Queue Monitor</h2>';
         echo '<form method="POST">';
         $this->display();
         echo '</form>';
