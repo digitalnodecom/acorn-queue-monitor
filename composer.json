@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
+    "name": "digitalnodecom/acorn-queue-monitor",
     "type": "package",
-    "description": ":package_description",
+    "description": "This is my package acorn-queue-monitor",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email"
+            "name": "KIKOmanasijev",
+            "email": "hristijan@digitalnode.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            ":vendor_name\\:class_name\\": "src/"
+            "DigitalNode\\AcornQueueMonitor\\": "src/"
         }
     },
     "require": {
@@ -21,10 +21,10 @@
     "extra": {
         "acorn": {
             "providers": [
-                ":vendor_name\\:class_name\\Providers\\:class_nameServiceProvider"
+                "DigitalNode\\AcornQueueMonitor\\Providers\\AcornQueueMonitorServiceProvider"
             ],
             "aliases": {
-                ":class_name": ":vendor_name\\:class_name\\Facades\\:class_name"
+                "AcornQueueMonitor": "DigitalNode\\AcornQueueMonitor\\Facades\\AcornQueueMonitor"
             }
         }
     }

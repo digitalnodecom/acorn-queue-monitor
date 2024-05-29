@@ -1,11 +1,11 @@
 <?php
 
-namespace VendorName\ExamplePackage;
+namespace DigitalNode\AcornQueueMonitor;
 
 use Illuminate\Support\Arr;
 use Roots\Acorn\Application;
 
-class Example
+class AcornQueueMonitor
 {
     /**
      * The application instance.
@@ -15,7 +15,7 @@ class Example
     protected $app;
 
     /**
-     * Create a new Example instance.
+     * Create a new AcornQueueMonitor instance.
      *
      * @param  \Roots\Acorn\Application  $app
      * @return void
@@ -23,17 +23,16 @@ class Example
     public function __construct(Application $app)
     {
         $this->app = $app;
+
+        $this->run();
     }
 
-    /**
-     * Retrieve a random inspirational quote.
-     *
-     * @return string
-     */
-    public function getQuote()
-    {
-        return Arr::random(
-            config('example.quotes')
-        );
+    private function run(){
+        add_action('admin_menu', function(){
+            /* @var Admin $admin */
+            $admin = $this->app->make('Admin');
+
+            $admin->queues_menu_page();
+        });
     }
 }
