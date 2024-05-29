@@ -10,5 +10,5 @@ An Acorn package that allows you to easily monitor the queue system of your Word
 Navigate to your Acorn plugin or theme, and run the following command:
 
 ```bash
-composer require pivoandcode/acorn-queue-monitor
+composer require digitalnodecom/acorn-queue-monitor
 ```
