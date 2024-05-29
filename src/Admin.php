@@ -16,9 +16,7 @@ class Admin {
             'Queues',
             'manage_options',
             'queues',
-            function () {
-                $this->pendingJobsTable->renderTable();
-            },
+            null,
             'dashicons-clock',
             10
         );
