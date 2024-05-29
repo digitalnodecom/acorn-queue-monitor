@@ -129,7 +129,7 @@ class FailedJobsTable extends \WP_List_Table
             add_query_arg(
                 [
                     'action' => 'aqm_retry_job',
-                    'post' => $item->uuid,
+                    'uuid' => $item->uuid,
                 ],
                 admin_url()
             ),

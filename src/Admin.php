@@ -55,7 +55,7 @@ class Admin
 
     public function handle_aqm_retry_job()
     {
-        if (isset($_GET['action']) && $_GET['action'] === 'aqm_retry_job' && isset($_GET['post'])) {
+        if (isset($_GET['action']) && $_GET['action'] === 'aqm_retry_job' && isset($_GET['uuid'])) {
             if (! check_admin_referer('aqm_retry_job')) {
                 wp_die(__('Nice try.', 'acorn-queue-monitor'));
             }
