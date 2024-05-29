@@ -15,7 +15,7 @@ class Admin {
             'Pending Jobs',
             'Queues',
             'manage_options',
-            'queues',
+            'pending-jobs',
             null,
             'dashicons-clock',
             10
@@ -24,11 +24,11 @@ class Admin {
 
     public function queues_pending_jobs_menu_subpage(){
         add_submenu_page(
-            'queues',
+            'pending-jobs',
             'Pending Jobs',
             'Pending Jobs',
             'manage_options',
-            'queues',
+            'pending-jobs',
             function () {
                 $this->pendingJobsTable->renderTable();
             },
@@ -37,7 +37,7 @@ class Admin {
 
     public function queues_failed_jobs_menu_subpage(){
         add_submenu_page(
-            'queues',
+            'pending-jobs',
             'Failed Jobs',
             'Failed Jobs',
             'manage_options',
